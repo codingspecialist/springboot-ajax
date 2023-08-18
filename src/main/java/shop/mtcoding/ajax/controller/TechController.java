@@ -23,8 +23,8 @@ public class TechController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @GetMapping("/test/tech")
-    public @ResponseBody TechResponse.MainDTO tech() {
+    @GetMapping("/v1/test/tech")
+    public @ResponseBody TechResponse.MainDTO techV1() {
         List<Category> categoryList = categoryRepository.findAll();
         List<Tech> techList = techRepository.findByCategoryId(1);
         System.out.println("=================================");
@@ -32,10 +32,21 @@ public class TechController {
         return mainDTO; // messageconverter 발동 - json 변환
     }
 
+    @GetMapping("/v2/test/tech")
+    public @ResponseBody List<Tech> techV2() {
+        List<Tech> techList = techRepository.findByCategoryId(1);
+        return techList; // messageconverter 발동 - json 변환
+    }
+
+    // 1. 빈껍데기 디자인을 준다 (데이터 없음)
     @GetMapping("/tech")
-    public String tech(Model model) {
-        List<Tech> techList = techRepository.findAll();
-        model.addAttribute("techList", techList);
+    public String tech() {
         return "main";
+    }
+
+    @GetMapping("/api/category")
+    public @ResponseBody List<Category> category() {
+
+        return categoryRepository.findAll();
     }
 }

@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +26,7 @@ public class Tech {
     private Integer id;
     private String name; // Spring, Java, Javascript, React, HTML
 
+    // @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 }
